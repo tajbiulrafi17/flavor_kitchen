@@ -44,7 +44,7 @@
                     <h1><?php echo $count2; ?></h1>
                     <br />
                     Foods
-                </div>
+                </div> 
 
                 <div class="col-4 text-center">
                     
