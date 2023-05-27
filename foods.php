@@ -57,7 +57,7 @@
                                     {
                                         //Image Available
                                         ?>
-                                        <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
+                                        <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" loading="lazy" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
                                         <?php
                                     }
                                 ?>
@@ -66,13 +66,23 @@
 
                             <div class="food-menu-desc">
                                 <h4><?php echo $title; ?></h4>
-                                <p class="food-price">$<?php echo $price; ?></p>
+                                <p class="food-price"><?php echo $price; ?> TK</p>
                                 <p class="food-detail">
                                     <?php echo $description; ?>
                                 </p>
                                 <br>
 
-                                <a href="<?php echo SITEURL; ?>order.php?food_id=<?php echo $id; ?>" class="btn btn-primary">Order Now</a>
+                                <form action="cart-manage.php" method="POST">
+                                    <label for="qty">Quantity:</label>
+                                    <input type="number" name="qty" id="qty"class="" value="1" min="1" max="10"required>
+                                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                    <input type="hidden" name="name" value="<?php echo $title; ?>">
+                                    <input type="hidden" name="image" value="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>">
+                                    <input type="hidden" name="price" value="<?php echo $price; ?>">
+                                    <br>
+                                    <input type="submit" name="btn" value="Add to Cart" class="btn btn-primary" style="margin-top:10px">
+                                </form>
+                                
                             </div>
                         </div>
 
@@ -86,13 +96,8 @@
                 }
             ?>
 
-            
-
-            
-
             <div class="clearfix"></div>
 
-            
 
         </div>
 

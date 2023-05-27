@@ -19,8 +19,6 @@
                     <tr>
                         <th>S.N.</th>
                         <th>Food</th>
-                        <th>Price</th>
-                        <th>Qty.</th>
                         <th>Total</th>
                         <th>Order Date</th>
                         <th>Status</th>
@@ -49,8 +47,6 @@
                                 //Get all the order details
                                 $id = $row['id'];
                                 $food = $row['food'];
-                                $price = $row['price'];
-                                $qty = $row['qty'];
                                 $total = $row['total'];
                                 $order_date = $row['order_date'];
                                 $status = $row['status'];
@@ -64,8 +60,6 @@
                                     <tr>
                                         <td><?php echo $sn++; ?>. </td>
                                         <td><?php echo $food; ?></td>
-                                        <td><?php echo $price; ?></td>
-                                        <td><?php echo $qty; ?></td>
                                         <td><?php echo $total; ?></td>
                                         <td><?php echo $order_date; ?></td>
 
@@ -97,7 +91,8 @@
                                         <td><?php echo $customer_email; ?></td>
                                         <td><?php echo $customer_address; ?></td>
                                         <td>
-                                            <a href="<?php echo SITEURL; ?>admin/update-order.php?id=<?php echo $id; ?>" class="btn-secondary">Update Order</a>
+                                            <a href="<?php echo SITEURL; ?>admin/update-order.php?id=<?php echo $id; ?>"><button class="btn btn-secondary">Update order</button></a>
+                                            
                                         </td>
                                     </tr>
 

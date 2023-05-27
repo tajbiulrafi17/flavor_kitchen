@@ -1,4 +1,7 @@
-<?php include('components-front/header.php'); ?>
+<?php include('components-front/header.php'); 
+    $startTime = microtime(true);
+?>
+
 
         <!-- fOOD sEARCH Section Starts Here -->
     <section class="food-search text-center">
@@ -27,17 +30,46 @@
             <h2 class="text-center">Explore Foods</h2>
 
             <?php 
-                //Create SQL Query to Display CAtegories from Database
-                $sql = "SELECT * FROM category WHERE active='Yes' AND featured='Yes' LIMIT 3";
-                //Execute the Query
-                $res = mysqli_query($conn, $sql);
-                //Count rows to check whether the category is available or not
-                $count = mysqli_num_rows($res);
 
-                if($count>0)
+                require_once("cache.class-old.php");
+
+                $cache = new Cache('cache');
+
+                $cacheMaxAge = 60;
+
+                $cacheCat = $cache->read('resCat', $cacheMaxAge);
+
+                if($cacheCat!= NULL){
+                    $res = json_decode($cacheCat, true);
+                }
+                else{
+                    //Create SQL Query to Display CAtegories from Database
+                    $sql = "SELECT id, title, image FROM category WHERE active='Yes' AND featured='Yes' LIMIT 3";
+                    //Execute the Query
+                    $res = mysqli_query($conn, $sql);
+                    //Count rows to check whether the category is available or not
+                
+                    $count = mysqli_num_rows($res);
+
+                    if($count>0)
+                    {
+                        $array =array();
+                        while($row=mysqli_fetch_assoc($res))
+                        {
+                            $array[] = $row;
+                        }
+                    }
+
+                    $cache->write('resCat', json_encode($array));
+                    $cacheCat = $cache->read('resCat', $cacheMaxAge);
+                    $res = json_decode($cacheCat, true);
+
+                }         
+
+                if($res)
                 {
                     //CAtegories Available
-                    while($row=mysqli_fetch_assoc($res))
+                   foreach($res as $row)
                     {
                         //Get the Values like id, title, image_name
                         $id = $row['id'];
@@ -92,22 +124,44 @@
             <h2 class="text-center">Food Menu</h2>
 
             <?php 
-            
-            //Getting Foods from Database that are active and featured
-            //SQL Query
-            $sql2 = "SELECT * FROM food WHERE active='Yes' AND featured='Yes' LIMIT 6";
 
-            //Execute the Query
-            $res2 = mysqli_query($conn, $sql2);
+             $cache = new Cache('cache');
 
-            //Count Rows
-            $count2 = mysqli_num_rows($res2);
+                $cacheMaxAge = 60;
 
-            //CHeck whether food available or not
-            if($count2>0)
+                $cacheFood = $cache->read('resFood', $cacheMaxAge);
+
+                if($cacheFood!= NULL){
+                    $res2 = json_decode($cacheFood, true);
+                }
+                else{
+                    //Create SQL Query to Display CAtegories from Database
+                    $sql2 = "SELECT id,title,price,description,image FROM food WHERE active='Yes' AND featured='Yes' LIMIT 6";
+                    //Execute the Query
+                    $res2 = mysqli_query($conn, $sql2);
+                    //Count rows to check whether the category is available or not
+                
+                    $count = mysqli_num_rows($res2);
+
+                    if($count>0)
+                    {
+                        $array =array();
+                        while($row=mysqli_fetch_assoc($res2))
+                        {
+                            $array[] = $row;
+                        }
+                    }
+
+                    $cache->write('resFood', json_encode($array));
+                    $cacheFood = $cache->read('resFood', $cacheMaxAge);
+                    $res2 = json_decode($cacheFood, true);
+
+                }         
+
+            if($res2)
             {
-                //Food Available
-                while($row=mysqli_fetch_assoc($res2))
+                //CAtegories Available
+                foreach($res2 as $row)
                 {
                     //Get all the values
                     $id = $row['id'];
@@ -130,7 +184,7 @@
                                 {
                                     //Image Available
                                     ?>
-                                    <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" alt="Food Image" class="img-responsive img-curve">
+                                    <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" loading="lazy" alt="Food Image" class="img-responsive img-curve">
                                     <?php
                                 }
                             ?>
@@ -145,7 +199,16 @@
                             </p>
                             <br>
 
-                            <a href="<?php echo SITEURL; ?>order.php?food_id=<?php echo $id; ?>" class="btn btn-primary">Order Now</a>
+                            <form action="cart-manage.php" method="POST">
+                                    <label for="qty">Quantity:</label>
+                                    <input type="number" name="qty" id="qty"class="" value="1" min="1" max="10"required>
+                                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                    <input type="hidden" name="name" value="<?php echo $title; ?>">
+                                    <input type="hidden" name="image" value="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>">
+                                    <input type="hidden" name="price" value="<?php echo $price; ?>">
+                                    <br>
+                                    <input type="submit" name="btn" value="Add to Cart" class="btn btn-primary" style="margin-top:10px">
+                                </form>
                         </div>
                     </div>
 
@@ -165,9 +228,17 @@
         </div>
 
         <p class="text-center">
-            <a href="#">See All Foods</a>
+            <a href="foods.php">See All Foods</a>
         </p>
     </section>
     <!-- fOOD Menu Section Ends Here -->
 
-<?php include('components-front/footer.php'); ?>
+<?php 
+
+$endTime = microtime(true);
+// echo 'Execution time '.number_format($endTime - $startTime, 10).' seconds';
+
+include('components-front/footer.php'); 
+
+?>
+

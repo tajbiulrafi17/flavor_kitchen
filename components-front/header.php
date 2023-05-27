@@ -11,6 +11,8 @@
 
     <!-- Link our CSS file -->
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="http://js.stripe.com/v3/"></script>
 </head>
 
 <body>
@@ -28,8 +30,13 @@
                     <li><a href="index.php">Home</a></li>
                     <li><a href="categories.php">Categories</a></li>
                     <li><a href="foods.php">Foods</a></li>
-                    <li><a href="order.php">Order</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <?php 
+					$count=0;
+					if (isset($_SESSION['cart'])) {
+						$count=count($_SESSION['cart']);
+					}
+				    ?>
+                    <li><a href="cart-view.php"><img src="images/cart.png" height="30px"><sup><?php echo $count; ?></sup></a></li>
                 </ul>
             </div>
 
