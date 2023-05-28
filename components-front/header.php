@@ -12,7 +12,7 @@
     <!-- Link our CSS file -->
     <link rel="stylesheet" href="css/style.css">
 
-    <script src="http://js.stripe.com/v3/"></script>
+
 </head>
 
 <body>
