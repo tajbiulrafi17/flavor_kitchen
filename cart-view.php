@@ -108,12 +108,12 @@
                                         <input type="hidden" name="amount" value="<?php echo $intotal; ?>">
                                         <input type="hidden" name="item" value="<?php echo $item; ?>">
 
-                                        <input type="submit" name="order" value="Proceed" class="btn btn-secondary">
+                                        <input type="submit" name="order" value="Proceed" class="btn btn-secondary" style="float: right;">
                                         
                                     </fieldset>
 
                                 </form>
-                                
+
                             </div>
     
 

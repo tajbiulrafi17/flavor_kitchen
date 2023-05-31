@@ -6,19 +6,19 @@
         <!-- fOOD sEARCH Section Starts Here -->
     <section class="food-search text-center">
         <div class="container">
-            
-            <form action="<?php echo SITEURL; ?>food-search.php" method="GET" id="form-search">
-                <div class="form-group">
-                    <input type="search" name="search" class="form-control"placeholder="Search for Food.." required>
-                    <input type="submit" name="submit" value="Search" class="btn btn-primary">
-                </div>
-                <div class="live-search-result">
-                    <ul class="search-result">
+                <form action="<?php echo SITEURL; ?>food-search.php" method="GET" id="form-search">
+                    <div class="form-group">
+                        <input type="search" name="search" class="form-control"placeholder="Search for Food.." autocomplete="off" required>
+                        <input type="submit" name="submit" value="Search" class="btn btn-primary">
+                    
+                    </div>
+                    <div class="live-search-result">
+                        <ul class="search-result " type="none">
 
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
+                    
                 </form>
-
         </div>
     </section>
     <!-- fOOD sEARCH Section Ends Here -->
@@ -243,35 +243,11 @@
 <?php 
 
 $endTime = microtime(true);
-// echo 'Execution time '.number_format($endTime - $startTime, 10).' seconds';
+ echo 'Execution time '.number_format($endTime - $startTime, 10).' seconds';
 
 include('components-front/footer.php'); 
 
 ?>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function(){
-        const liveSearchResult = $('.live-search-result')
 
-        $('#form-search input').keyup(function(){
-            liveSearch($(this).val())
-        })
-
-        function liveSearch(keyword){
-            $.ajax({
-                url: "ajax.php",
-                type: "GET", 
-                data: {
-                    action: 'search-result',
-                    keyword: keyword
-                },
-                datatype: "json",
-                success: function(result){
-                    console.log(result)
-                }
-            })
-        }
-    })
-</script>
 

@@ -4,13 +4,13 @@
         <div class="container text-center">
             <ul>
                 <li>
-                    <a href="#"><img src="images/facebook.png" loading="lazy" height="80px"/></a>
+                    <a href="index.php"><img src="images/facebook.png" alt="fb logo" loading="lazy" height="80px"/></a>
                 </li>
                 <li>
-                    <a href="#"><img src="images/instagram.png" loading="lazy" height="80px"/></a>
+                    <a href="index.php"><img src="images/instagram.png" alt="insta logo" loading="lazy" height="80px"/></a>
                 </li>
                 <li>
-                    <a href="#"><img src="images/youtube.png" loading="lazy" height="80px"/></a>
+                    <a href="index.php"><img src="images/youtube.png" alt="youtube logo" loading="lazy" height="80px"/></a>
                 </li>
             </ul>
         </div>
@@ -34,5 +34,8 @@
 
 
 </body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="ajax.js"></script>
 
 </html>

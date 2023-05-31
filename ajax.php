@@ -1,5 +1,4 @@
 <?php
-    include('config/constants.php');
     
     if(isset($_GET["action"])){
         $action = $_GET["action"];
@@ -13,24 +12,25 @@
     }
     function liveSearch($keyword){
 
-        $conn = mysqli_connect('localhost', 'root', '') or die(mysqli_error());
-        $sql = "SELECT * FROM food WHERE title LIKE '%$keyword%' OR description LIKE '%$keyword%'";
+        $paramSearch = "%" . $keyword . "%";
+        $sqlSearch = "SELECT * FROM food WHERE title LIKE ? OR description LIKE ?";
 
-                //Execute the Query
-                $res = mysqli_query($conn, $sql);
-                //Count Rows
-                $count = mysqli_num_rows($res);
-                //Check whether food available of not
-                if($count>0)
-                {
-                    $data = [];
-                    //Food Available
-                    while($row=mysqli_fetch_assoc($res))
-                    {
-                        $data[] = $row;
-                    }
-                    echo json_encode($data);
-                }
+        include 'config/constants.php'; 
+
+        $stmt = $db->prepare($sqlSearch);
+        $stmt->bind_param("ss", ...[$paramSearch], ...[$paramSearch]);
+        $stmt->execute(); 
+        $result = $stmt->get_result();
+
+        $data = [];
+
+        while($row = $result->fetch_assoc()){
+            $data[] = $row;
+        }
+        $stmt->close();
+        $db->close();
+        echo json_encode($data);
 
     }
+
 ?>

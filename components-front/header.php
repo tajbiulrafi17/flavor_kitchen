@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <!-- Important to make website responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flavor Kitchen Website.">
     <title>Flavor Kitchen</title>
 
     <!-- Link our CSS file -->
@@ -36,7 +37,7 @@
 						$count=count($_SESSION['cart']);
 					}
 				    ?>
-                    <li><a href="cart-view.php"><img src="images/cart.png" height="30px"><sup><?php echo $count; ?></sup></a></li>
+                    <li><a href="cart-view.php"><img src="images/cart.png" alt="cart logo" height="30px"><sup><?php echo $count; ?></sup></a></li>
                 </ul>
             </div>
 

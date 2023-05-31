@@ -153,6 +153,8 @@ if(!empty($_GET['session_id'])){
 } 
 ?>
 
+
+
 <?php if(!empty($payment_id)){ ?>
 
     <div class="main-content">

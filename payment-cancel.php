@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-<title>Payment Cancel</title>
-<meta charset="utf-8">
+<?php include('components-front/header.php'); ?>
 
-<!-- Stylesheet file -->
-<link href="css/style.css" rel="stylesheet">
-</head>
-<body>
-<div class="container">
-    <div class="status">
+<div class="main-content">
+    <div class="wrapper">
         <h1 class="error">Your transaction was canceled!</h1>
+        <br><br>
+        <a href="index.php" class="btn btn-secondary">Back to home Page</a>
     </div>
-    <a href="index.php" class="btn-link">Back to Product Page</a>
+
 </div>
-</body>
-</html>
+
+
+<?php include('components-front/footer.php'); ?>

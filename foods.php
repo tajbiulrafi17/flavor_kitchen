@@ -3,12 +3,19 @@
     <!-- fOOD sEARCH Section Starts Here -->
     <section class="food-search text-center">
         <div class="container">
-            
-            <form action="<?php echo SITEURL; ?>food-search.php" method="POST">
-                <input type="search" name="search" placeholder="Search for Food.." required>
-                <input type="submit" name="submit" value="Search" class="btn btn-primary">
-            </form>
+                <form action="<?php echo SITEURL; ?>food-search.php" method="GET" id="form-search">
+                    <div class="form-group">
+                        <input type="search" name="search" class="form-control"placeholder="Search for Food.." autocomplete="off" required>
+                        <input type="submit" name="submit" value="Search" class="btn btn-primary">
+                    
+                    </div>
+                    <div class="live-search-result">
+                        <ul class="search-result " type="none">
 
+                        </ul>
+                    </div>
+                    
+                </form>
         </div>
     </section>
     <!-- fOOD sEARCH Section Ends Here -->
@@ -96,6 +103,7 @@
                 }
             ?>
 
+
             <div class="clearfix"></div>
 
 
@@ -106,3 +114,5 @@
 
 
 <?php include('components-front/footer.php'); ?>
+
+

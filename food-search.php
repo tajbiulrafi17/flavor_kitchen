@@ -3,17 +3,19 @@
         <!-- fOOD sEARCH Section Starts Here -->
     <section class="food-search text-center">
         <div class="container">
-            <?php 
+                <form action="<?php echo SITEURL; ?>food-search.php" method="GET" id="form-search">
+                    <div class="form-group">
+                        <input type="search" name="search" class="form-control"placeholder="Search for Food.." autocomplete="off" required>
+                        <input type="submit" name="submit" value="Search" class="btn btn-primary">
+                    
+                    </div>
+                    <div class="live-search-result">
+                        <ul class="search-result " type="none">
 
-                //Get the Search Keyword
-                // $search = $_POST['search'];
-                $search = mysqli_real_escape_string($conn, $_POST['search']);
-            
-            ?>
-
-
-            <h2 class="text-white">Foods on Your Search <a href="#" class="text-red">"<?php echo $search; ?>"</a></h2>
-
+                        </ul>
+                    </div>
+                    
+                </form>
         </div>
     </section>
     <!-- fOOD sEARCH Section Ends Here -->
@@ -23,7 +25,16 @@
     <!-- fOOD MEnu Section Starts Here -->
     <section class="food-menu">
         <div class="container">
-            <h2 class="text-center">Food Menu</h2>
+
+            <?php 
+                //Get the Search Keyword
+                // $search = $_POST['search'];
+                $search = mysqli_real_escape_string($conn, $_GET['search']);
+            
+            ?>
+
+            <h2 class="text-center">Foods on Your Search <a href="#" class="text-red">"<?php echo $search; ?>"</a></h2>
+
 
             <?php 
 
@@ -42,18 +53,18 @@
                     //Food Available
                     while($row=mysqli_fetch_assoc($res))
                     {
-                        //Get the details
+                        //Get the Values
                         $id = $row['id'];
                         $title = $row['title'];
-                        $price = $row['price'];
                         $description = $row['description'];
+                        $price = $row['price'];
                         $image_name = $row['image'];
                         ?>
-
+                        
                         <div class="food-menu-box">
                             <div class="food-menu-img">
                                 <?php 
-                                    // Check whether image name is available or not
+                                    //CHeck whether image available or not
                                     if($image_name=="")
                                     {
                                         //Image not Available
@@ -64,8 +75,7 @@
                                         //Image Available
                                         ?>
                                         <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" loading="lazy" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                                        <?php 
-
+                                        <?php
                                     }
                                 ?>
                                 
@@ -73,13 +83,23 @@
 
                             <div class="food-menu-desc">
                                 <h4><?php echo $title; ?></h4>
-                                <p class="food-price">$<?php echo $price; ?></p>
+                                <p class="food-price"><?php echo $price; ?> TK</p>
                                 <p class="food-detail">
                                     <?php echo $description; ?>
                                 </p>
                                 <br>
 
-                                <a href="#" class="btn btn-primary">Order Now</a>
+                                <form action="cart-manage.php" method="POST">
+                                    <label for="qty">Quantity:</label>
+                                    <input type="number" name="qty" id="qty"class="" value="1" min="1" max="10"required>
+                                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                    <input type="hidden" name="name" value="<?php echo $title; ?>">
+                                    <input type="hidden" name="image" value="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>">
+                                    <input type="hidden" name="price" value="<?php echo $price; ?>">
+                                    <br>
+                                    <input type="submit" name="btn" value="Add to Cart" class="btn btn-primary" style="margin-top:10px">
+                                </form>
+                                
                             </div>
                         </div>
 
